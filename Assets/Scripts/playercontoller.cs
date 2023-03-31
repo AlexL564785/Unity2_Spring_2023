@@ -10,6 +10,7 @@ public class playercontoller : MonoBehaviour
     Rigidbody rb;
     float h, v;
     Vector3 inputvector;
+    public float jumpheight = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,17 @@ public class playercontoller : MonoBehaviour
         movedir = ctx.ReadValue<Vector2>();
 
     }
+
+    public void Jump()
+    {
+
+        rb.AddForce(Vector3.up * jumpheight, ForceMode.Impulse);
+
+    }
+
+
+
+
 
     float Dampenvalue(float readvalue, float movedir)
     {
