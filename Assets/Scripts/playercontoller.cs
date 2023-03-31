@@ -6,11 +6,17 @@ using UnityEngine.InputSystem;
 public class playercontoller : MonoBehaviour
 {
     Vector2 movedir;
-    public float speed = 10;
+    
     Rigidbody rb;
     float h, v;
     Vector3 inputvector;
+    [Header("Movement Header")]
+    [Tooltip("speed adjusts the speed of the player")]
+    public float speed = 10;
+    [Tooltip("jump heigth adjusts the force applied to the player jump")]
+    [Range(0,20)]
     public float jumpheight = 10;
+    public LayerMask groundlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -45,8 +51,12 @@ public class playercontoller : MonoBehaviour
 
     public void Jump()
     {
-
+        if(GroundCheck())
+        {
         rb.AddForce(Vector3.up * jumpheight, ForceMode.Impulse);
+        }
+       
+
 
     }
 
@@ -59,6 +69,19 @@ public class playercontoller : MonoBehaviour
         readvalue = Mathf.MoveTowards(readvalue, movedir, Time.deltaTime * 2);
         return readvalue = Mathf.Clamp(readvalue, -1,1);
 
+    }
+
+    bool GroundCheck()
+    {
+        float dist = GetComponent<Collider>().bounds.extents.y + 0.1f;
+        Ray ray = new Ray(transform.position, Vector3.down);
+        return Physics.Raycast(ray,dist, groundlayer);
+    }
+
+    private void OnDrawGizmos()
+    {
+        float dist = GetComponent<Collider>().bounds.extents.y + 0.1f;
+        Debug.DrawRay(transform.position, Vector3.down * dist, Color.magenta);
     }
 
 }
