@@ -7,6 +7,7 @@ public class coinhud : MonoBehaviour
     public int coinscol;
     public int coinsinscrene;
     public TMP_Text coindisplay;
+    public raycastscript it;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,11 @@ public class coinhud : MonoBehaviour
     {
         coinscol++;
         coindisplay.text = $"Coins {coinscol}/{coinsinscrene}";
+
+        if(coinscol == coinsinscrene)
+        {
+            it.opendoor = true;
+        }
        
     }
 }

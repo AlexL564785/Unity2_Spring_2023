@@ -17,11 +17,14 @@ public class playercontoller : MonoBehaviour
     [Range(0,20)]
     public float jumpheight = 10;
     public LayerMask groundlayer;
+   public Animator anim;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        
 
     }
 
@@ -37,13 +40,16 @@ public class playercontoller : MonoBehaviour
 
         rb.velocity = inputvector;
 
+        anim.SetFloat("Move",movedir.magnitude);
+
+
         Debug.DrawRay(transform.position, transform.forward * 7, Color.red);
 
     }
 
     public void MovePlayer(InputAction.CallbackContext ctx)
     {
-        Debug.Log(ctx.ReadValue<Vector2>());
+        //Debug.Log(ctx.ReadValue<Vector2>());
 
         movedir = ctx.ReadValue<Vector2>();
 
@@ -54,6 +60,7 @@ public class playercontoller : MonoBehaviour
         if(GroundCheck())
         {
         rb.AddForce(Vector3.up * jumpheight, ForceMode.Impulse);
+            anim.SetTrigger("jump");
         }
        
 

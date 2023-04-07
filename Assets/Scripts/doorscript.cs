@@ -8,6 +8,7 @@ public class doorscript : MonoBehaviour
     public float smoothtime = 0.3f;
     public float yvelocity;
     public bool DoorOpen = false;
+    public int coinsinscrene;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +24,9 @@ public class doorscript : MonoBehaviour
             transform.position = new Vector3(transform.position.x,newpos, transform.position.z);
             
         }
-       // if (coinsinscrene >= 5)
-       // {
-        //    DoorOpen = true;
-       // }
+        if (coinsinscrene >= 5)
+        {
+            DoorOpen = true;
+        }
     }
 }
